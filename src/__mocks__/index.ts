@@ -236,6 +236,7 @@ export const validHex =
   "000100020003000400050101010101014014cccccccccccdcdcccccccccc144040a666666666a64000050500000000050500000000000000b2d05e00005ed0b200000000050000000000050500000000000101010101000000000000050500000000050500000000000000b2d05e00005ed0b2000000000500000000000505000000000005006162636465";
 
 export const validBuffer = Buffer.from(validHex, "hex");
+export const otherBuffer = Buffer.from(validBuffer).reverse();
 export const emptyBuffer = (length: number): Buffer => Buffer.alloc(length);
 export const invalidBuffer = (
   length: number,
