@@ -1,7 +1,7 @@
 # bstruct
 
-[npm-url]: https://npmjs.org/package/bstruct
-[npm-image]: https://img.shields.io/npm/v/bstruct.svg
+[npm-url]: https://npmjs.org/package/@sighmir/bstruct
+[npm-image]: https://img.shields.io/npm/v/@sighmir/bstruct.svg
 [pipeline-image]: https://github.com/Sighmir/bstruct/workflows/CI/CD/badge.svg
 [pipeline-url]: https://github.com/Sighmir/bstruct/actions?query=workflow%3ACI%2FCD
 [coverage-image]: https://codecov.io/gh/Sighmir/bstruct/graph/badge.svg
