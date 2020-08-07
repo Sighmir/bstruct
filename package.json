@@ -1,7 +1,7 @@
 {
   "name": "@sighmir/bstruct",
   "description": "Declaratively encode and decode binary data",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "author": "Guilherme Caulada",
   "license": "GPL-3.0",
   "main": "dist/index.js",
