@@ -1,11 +1,19 @@
 {
   "name": "@sighmir/bstruct",
   "description": "Declaratively encode and decode binary data",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Guilherme Caulada",
   "license": "GPL-3.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sighmir/bstruct.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sighmir/bstruct/issues"
+  },
+  "homepage": "https://github.com/Sighmir/bstruct#readme",
   "scripts": {
     "start": "node dist/index.js",
     "start:example": "ts-node --no-warnings example/index.ts",
