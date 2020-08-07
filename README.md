@@ -1,17 +1,17 @@
-# b-struct
+# bstruct
 
-[npm-url]: https://npmjs.org/package/b-struct
-[npm-image]: https://img.shields.io/npm/v/b-struct.svg
-[pipeline-image]: https://github.com/Sighmir/b-struct/workflows/CI/CD/badge.svg
-[pipeline-url]: https://github.com/Sighmir/b-struct/actions?query=workflow%3ACI%2FCD
-[coverage-image]: https://codecov.io/gh/Sighmir/b-struct/graph/badge.svg
-[coverage-url]: https://codecov.io/gh/Sighmir/b-struct
-[quality-image]: https://sonarcloud.io/api/project_badges/measure?project=b-struct&metric=alert_status
-[quality-url]: https://sonarcloud.io/dashboard?id=b-struct
-[depstat-url]: https://david-dm.org/Sighmir/b-struct
-[depstat-image]: https://david-dm.org/Sighmir/b-struct/status.svg
-[devdepstat-url]: https://david-dm.org/Sighmir/b-struct?type=dev
-[devdepstat-image]: https://david-dm.org/Sighmir/b-struct/dev-status.svg
+[npm-url]: https://npmjs.org/package/bstruct
+[npm-image]: https://img.shields.io/npm/v/bstruct.svg
+[pipeline-image]: https://github.com/Sighmir/bstruct/workflows/CI/CD/badge.svg
+[pipeline-url]: https://github.com/Sighmir/bstruct/actions?query=workflow%3ACI%2FCD
+[coverage-image]: https://codecov.io/gh/Sighmir/bstruct/graph/badge.svg
+[coverage-url]: https://codecov.io/gh/Sighmir/bstruct
+[quality-image]: https://sonarcloud.io/api/project_badges/measure?project=bstruct&metric=alert_status
+[quality-url]: https://sonarcloud.io/dashboard?id=bstruct
+[depstat-url]: https://david-dm.org/Sighmir/bstruct
+[depstat-image]: https://david-dm.org/Sighmir/bstruct/status.svg
+[devdepstat-url]: https://david-dm.org/Sighmir/bstruct?type=dev
+[devdepstat-image]: https://david-dm.org/Sighmir/bstruct/dev-status.svg
 
 [![NPM version][npm-image]][npm-url]
 [![Pipeline Status][pipeline-image]][pipeline-url]
@@ -27,7 +27,7 @@ Inspired by [restructure](https://github.com/foliojs/restructure) and [binary-pa
 ## Example
 
 ```ts
-import * as b from "b-struct";
+import * as b from "@sighmir/bstruct";
 
 export const login = b.struct({
   length: b.int16le,
@@ -94,7 +94,7 @@ Uses the value of a variable on the parent object to pick a parser for a nested 
 ## License
 
 ```
-b-struct - Declaratively encode and decode binary data
+bstruct - Declaratively encode and decode binary data
 Copyright (C) 2020  Guilherme Caulada
 
 This program is free software: you can redistribute it and/or modify
