@@ -35,6 +35,7 @@ export interface StructMap {
 }
 
 export type ChoiceParser = (obj: BinaryObject) => BinaryParser;
+export type ParserDecoder = (buf: Buffer) => BinaryType;
 
 export const skip = (bytes: number): BinaryParser => ({
   size: bytes,
@@ -58,16 +59,20 @@ export const string = (
 
 export const bool: BinaryParser = {
   size: 1,
-  encode: (value: BinaryType) => Buffer.alloc(1).fill(Number(value)),
+  encode: (value: BinaryType) => Buffer.alloc(1).fill(Number(Boolean(value))),
   decode: (buf: Buffer) => Boolean(buf[0]),
 };
 
 export const int64be: BinaryParser = {
   size: 8,
   encode: (value: BinaryType) => {
-    const buf = Buffer.alloc(8);
-    buf.writeBigInt64BE(BigInt(value));
-    return buf;
+    try {
+      const buf = Buffer.alloc(8);
+      buf.writeBigInt64BE(BigInt(value));
+      return buf;
+    } catch {
+      throw TypeError(`Expected bigint but value is ${typeof value}`);
+    }
   },
   decode: (buf: Buffer) => buf.readBigInt64BE(),
 };
@@ -75,9 +80,13 @@ export const int64be: BinaryParser = {
 export const int64le: BinaryParser = {
   size: 8,
   encode: (value: BinaryType) => {
-    const buf = Buffer.alloc(8);
-    buf.writeBigInt64LE(BigInt(value));
-    return buf;
+    try {
+      const buf = Buffer.alloc(8);
+      buf.writeBigInt64LE(BigInt(value));
+      return buf;
+    } catch {
+      throw TypeError(`Expected bigint but value is ${typeof value}`);
+    }
   },
   decode: (buf: Buffer) => buf.readBigInt64LE(),
 };
@@ -85,9 +94,13 @@ export const int64le: BinaryParser = {
 export const uint64be: BinaryParser = {
   size: 8,
   encode: (value: BinaryType) => {
-    const buf = Buffer.alloc(8);
-    buf.writeBigUInt64BE(BigInt(value));
-    return buf;
+    try {
+      const buf = Buffer.alloc(8);
+      buf.writeBigUInt64BE(BigInt(value));
+      return buf;
+    } catch {
+      throw TypeError(`Expected bigint but value is ${typeof value}`);
+    }
   },
   decode: (buf: Buffer) => buf.readBigInt64BE(),
 };
@@ -95,9 +108,13 @@ export const uint64be: BinaryParser = {
 export const uint64le: BinaryParser = {
   size: 8,
   encode: (value: BinaryType) => {
-    const buf = Buffer.alloc(8);
-    buf.writeBigUInt64LE(BigInt(value));
-    return buf;
+    try {
+      const buf = Buffer.alloc(8);
+      buf.writeBigUInt64LE(BigInt(value));
+      return buf;
+    } catch {
+      throw TypeError(`Expected bigint but value is ${typeof value}`);
+    }
   },
   decode: (buf: Buffer) => buf.readBigInt64LE(),
 };
@@ -284,17 +301,26 @@ export const uintle = (bytes: number): BinaryParser => ({
 
 export const buffer = (bytes: number): BinaryParser => ({
   size: bytes,
-  encode: (value: BinaryType) => value as Buffer,
+  encode: (value: BinaryType) => {
+    if (!isBuffer(value))
+      throw TypeError(`Expected buffer but value is ${typeof value}`);
+    return value as Buffer;
+  },
   decode: (buf: Buffer) => Buffer.from(buf, 0, bytes),
 });
 
 export const array = (length: number, parser: BinaryParser): BinaryParser => ({
   size: length * parser.size,
-  encode: (value: BinaryType) =>
-    (value as Array<BinaryType>).reduce(
-      (buf, val) => Buffer.concat([buf as Buffer, parser.encode(val)]),
-      Buffer.alloc(0),
-    ) as Buffer,
+  encode: (value: BinaryType) => {
+    try {
+      return (value as Array<BinaryType>).reduce(
+        (buf, val) => Buffer.concat([buf as Buffer, parser.encode(val)]),
+        Buffer.alloc(0),
+      ) as Buffer;
+    } catch {
+      throw TypeError(`Expected array but value is ${typeof value}`);
+    }
+  },
   decode: (buf: Buffer) =>
     new Array(length)
       .fill(0)
@@ -303,11 +329,14 @@ export const array = (length: number, parser: BinaryParser): BinaryParser => ({
       ),
 });
 
-export const choice = (key: string, map: StructMap) => (
+export const choice = (key: string, map: StructMap, def?: BinaryParser) => (
   obj: BinaryObject,
 ): BinaryParser => {
   const _key = obj[key] as string | number;
-  const parser = map[_key];
+  const parser = map[_key] || def;
+  if (!parser) {
+    throw TypeError(`Parser not found for key "${key}" of value ${_key}`);
+  }
   return {
     size: parser.size,
     encode: parser.encode,
