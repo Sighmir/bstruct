@@ -20,7 +20,7 @@
 [![Dependency Status][depstat-image]][depstat-url]
 [![Dev Dependency Status][devdepstat-image]][devdepstat-url]
 
-Declaratively encode and decode binary data by Guilherme Caulada
+Declaratively encode and decode binary data
 
 Inspired by [restructure](https://github.com/foliojs/restructure) and [binary-parser](https://github.com/keichi/binary-parser)
 
