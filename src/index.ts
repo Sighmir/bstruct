@@ -304,7 +304,7 @@ export const buffer = (bytes: number): BinaryParser => ({
   encode: (value: BinaryType) => {
     if (!isBuffer(value))
       throw TypeError(`Expected buffer but value is ${typeof value}`);
-    return value as Buffer;
+    return value;
   },
   decode: (buf: Buffer) => Buffer.from(buf, 0, bytes),
 });
@@ -380,7 +380,7 @@ export const struct = (bstruct: BinaryStruct): StructParser => {
     const obj: BinaryObject = {};
     Object.keys(bstruct).forEach((key) => {
       const parser = getParser(bstruct, key, obj);
-      const chunk = buf.slice(offset, offset + (parser.size as number));
+      const chunk = buf.slice(offset, offset + parser.size);
       obj[key] = parser.decode(chunk);
       offset += parser.size;
     });
