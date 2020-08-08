@@ -17,7 +17,7 @@ export interface BinaryParser {
 export interface StructParser {
   size: number;
   encode: (value: unknown) => Buffer;
-  decode: <T = never>(buf: Buffer) => T;
+  decode: <T>(buf: Buffer) => T;
   struct: BinaryStruct;
 }
 
